@@ -34,6 +34,56 @@ void inicializar(list *inicio, list *fim){
     *inicio = NULL;
     *fim = NULL;
 }
+list alocar(){
+    return (malloc(sizeof(struct listNo)));
+}
+
+int vazia(list inicio){
+    if(inicio == NULL)
+        return 1;
+
+    return 0;
+}
+
+void inserirPalavra(list *inicio, list *fim){
+
+    list aux;
+    aux = alocar();
+
+    printf("\n\t--- Cadastro de Palavras ---\n\n");
+    printf("\n\tPalavra:\n\t>");
+    fflush(stdin);
+    gets(aux->dicionario.palavra);
+    printf("\n\tSignificado:\n\t>");
+    fflush(stdin);
+    gets(aux->dicionario.significado);
+
+    if (vazia(*inicio)){
+        *inicio = aux;
+        *fim = aux;
+        (*fim)->prox = NULL;
+    }
+    else{
+        (*fim)->prox = aux;
+        *fim = aux;
+        (*fim)->prox = NULL;
+
+    }
+}
+
+void listarPalavras(list auxiliar){
+    if(vazia(auxiliar)){
+        printf("\n\tDicionario Vazio!");
+    }
+    else{
+        printf("\n\t-- Palavras e seus significados --\n");
+
+        while (auxiliar != NULL){
+            printf("\n\t%s: %s\n\n", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
+            auxiliar = auxiliar->prox;
+        }
+    }
+}
 
 main(){
     int opcao;
@@ -41,20 +91,25 @@ main(){
 
     inicializar(&inicio, &fim);
 
-    opcao = menu();
+    
+    do{
+        opcao = menu();
 
-    switch (opcao){
-    case 1:
-        //cadastro
-        break;
-    case 2:
-        // listar
-        break;
-    case 3:
-        //pesquisar
-    case 0:
-        printf("\n\tSaindo..");
-    default:
-        printf("\n\tOpcao Invalida.");
-    }
+        switch (opcao){
+        case 1:
+            system("cls");
+            inserirPalavra(&inicio, &fim);
+            break;
+        case 2:
+            system("cls");
+            listarPalavras(inicio);
+            break;
+        case 3:
+            //pesquisar
+        case 0:
+            printf("\n\tSaindo..");
+        default:
+            printf("\n\tOpcao Invalida.");
+        }
+    }while(opcao!= 0);
 }
