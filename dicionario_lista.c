@@ -5,7 +5,7 @@
 #define SIZE 200
 
 typedef struct Dicionario{
-    char palavra[SIZE];
+    char palavra[30];
     char significado[SIZE];
 }Dicionario;
 
@@ -14,7 +14,6 @@ typedef struct listNo{
     struct listNo *prox;
 
 }*list;
-
 
 int menu(){
     int opcao;
@@ -79,19 +78,50 @@ void listarPalavras(list auxiliar){
         printf("\n\t-- Palavras e seus significados --\n");
 
         while (auxiliar != NULL){
-            printf("\n\t%s: %s\n\n", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
+            printf("\n\t%s:\n\t %s\n\n", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
             auxiliar = auxiliar->prox;
         }
+    }
+}
+
+void pesquisarPalavra(list auxiliar, char palavra[30]){
+    int found = 0;
+
+    while (auxiliar!=NULL){
+        if(strcmp(auxiliar->dicionario.palavra , palavra) == 0){
+            printf("\n\t%s:\n\t\t%s.", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
+            found= 1;
+        }
+        auxiliar = auxiliar->prox;
+    }
+    if(found == 0){
+        printf("\n\tPalavra nao encontrada!\n");
+    }
+}
+
+void removerPalavra(list auxiliar, char palavraRemovida[30]){
+    int found = 0;
+
+    while (auxiliar->prox!=NULL){
+        if(strcmp(auxiliar->dicionario.palavra , palavraRemovida) == 0){
+            auxiliar.
+            found= 1;
+            printf("\n\tPalavra removida com sucesso!");
+        }
+        auxiliar = auxiliar->prox;
+    }
+    if(found == 0){
+        printf("\n\tPalavra nao encontrada!\n");
     }
 }
 
 main(){
     int opcao;
     list inicio, fim;
-
+    char pesquisa[30], palavraRemovida[30];
+    
     inicializar(&inicio, &fim);
 
-    
     do{
         opcao = menu();
 
@@ -105,11 +135,23 @@ main(){
             listarPalavras(inicio);
             break;
         case 3:
-            //pesquisar
+            system("cls");
+            printf("\n\tInforme a palavra: ");
+            fflush(stdin);
+            gets(pesquisa);
+            pesquisarPalavra(inicio, pesquisa);
+            break;
+        case 4:
+            system("cls");
+            printf("\n\tInforme a palavra que será removida:\n\t> ");
+            fflush(stdin);
+            gets(palavraRemovida);
+            removerPalavra(inicio, palavraRemovida);
+            break;
         case 0:
             printf("\n\tSaindo..");
         default:
             printf("\n\tOpcao Invalida.");
         }
-    }while(opcao!= 0);
+    }while(opcao != 0);
 }
