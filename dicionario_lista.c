@@ -104,7 +104,7 @@ void removerPalavra(list auxiliar, char palavraRemovida[30]){
 
     while (auxiliar->prox!=NULL){
         if(strcmp(auxiliar->dicionario.palavra , palavraRemovida) == 0){
-            auxiliar.
+            auxiliar;
             found= 1;
             printf("\n\tPalavra removida com sucesso!");
         }
