@@ -156,11 +156,15 @@ main(){
             pesquisarPalavra(inicio, pesquisa);
         break;
         case 4:
-            system("cls");
-            printf("\n\tInforme a palavra que sera removida:\n\t> ");
+            printf("\n\tPalavra que será removida: ");
             fflush(stdin);
             gets(palavraRemovida);
-            removerPalavra(inicio, fim,  palavraRemovida);   
+
+            if(vazia(inicio)) {
+                printf("\n\tDicionario vazio\n\n");
+            } else {
+                removerPalavra(&inicio, &fim, palavraRemovida);
+            }   
         break;
         case 0:
             printf("\n\tSaindo..");
