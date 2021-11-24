@@ -22,6 +22,7 @@ int menu(){
     printf("\n\t1. Adicionar uma palavra");
     printf("\n\t2. Listar palavras");
     printf("\n\t3. Pesquisar palavra");
+    printf("\n\t4. Remover palavra");
     printf("\n\t0. Sair");
     printf("\n\n\tEscolha uma opcao:\n\t>");
     scanf("%d", &opcao);
@@ -33,6 +34,7 @@ void inicializar(list *inicio, list *fim){
     *inicio = NULL;
     *fim = NULL;
 }
+
 list alocar(){
     return (malloc(sizeof(struct listNo)));
 }
@@ -97,25 +99,37 @@ void pesquisarPalavra(list auxiliar, char palavra[30]){
     if(found == 0){
         printf("\n\tPalavra nao encontrada!\n");
     }
+    return menu();
 }
 
-void removerPalavra(list auxiliar, char palavraRemovida[30]){
+void removerPalavra(list *inicial, list *final, char palavra[30]) {
+    list auxiliar, anterior;
     int found = 0;
 
-    while (auxiliar->prox!=NULL){
-        if(strcmp(auxiliar->dicionario.palavra , palavraRemovida) == 0){
-            auxiliar;
-            found= 1;
-            printf("\n\tPalavra removida com sucesso!");
+    anterior = NULL;
+    auxiliar = *inicial;
+
+    while(auxiliar != NULL) {
+        if (strcmp(auxiliar->dicionario.palavra, palavra) == 0) {
+            found = 1;
+            auxiliar = auxiliar->prox;
+            if (anterior == NULL) {
+                free(*inicial);
+                *inicial = auxiliar;
+            } else {
+                free(anterior->prox);
+                anterior->prox = auxiliar;
+            }
+        } else {
+            anterior = auxiliar;
+            auxiliar = auxiliar->prox;
         }
-        auxiliar = auxiliar->prox;
     }
-    if(found == 0){
-        printf("\n\tPalavra nao encontrada!\n");
-    }
+    return menu;
 }
 
 main(){
+
     int opcao;
     list inicio, fim;
     char pesquisa[30], palavraRemovida[30];
@@ -129,25 +143,25 @@ main(){
         case 1:
             system("cls");
             inserirPalavra(&inicio, &fim);
-            break;
+        break;
         case 2:
             system("cls");
             listarPalavras(inicio);
-            break;
+        break;
         case 3:
             system("cls");
             printf("\n\tInforme a palavra: ");
             fflush(stdin);
             gets(pesquisa);
             pesquisarPalavra(inicio, pesquisa);
-            break;
+        break;
         case 4:
             system("cls");
-            printf("\n\tInforme a palavra que será removida:\n\t> ");
+            printf("\n\tInforme a palavra que sera removida:\n\t> ");
             fflush(stdin);
             gets(palavraRemovida);
-            removerPalavra(inicio, palavraRemovida);
-            break;
+            removerPalavra(inicio, fim,  palavraRemovida);   
+        break;
         case 0:
             printf("\n\tSaindo..");
         default:
