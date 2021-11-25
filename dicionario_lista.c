@@ -52,9 +52,11 @@ void inserirPalavra(list *inicio, list *fim){
     aux = alocar();
 
     printf("\n\t--- Cadastro de Palavras ---\n\n");
+
     printf("\n\tPalavra:\n\t>");
     fflush(stdin);
     gets(aux->dicionario.palavra);
+
     printf("\n\tSignificado:\n\t>");
     fflush(stdin);
     gets(aux->dicionario.significado);
@@ -80,7 +82,7 @@ void listarPalavras(list auxiliar){
         printf("\n\t-- Palavras e seus significados --\n");
 
         while (auxiliar != NULL){
-            printf("\n\t%s:\n\t %s\n\n", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
+            printf("\n\t%s:\n\t%s\n\n", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
             auxiliar = auxiliar->prox;
         }
     }
@@ -91,7 +93,7 @@ void pesquisarPalavra(list auxiliar, char palavra[30]){
 
     while (auxiliar!=NULL){
         if(strcmp(auxiliar->dicionario.palavra , palavra) == 0){
-            printf("\n\t%s:\n\t\t%s.", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
+            printf("\n\t%s:\n\t%s.", auxiliar->dicionario.palavra, auxiliar->dicionario.significado);
             found= 1;
         }
         auxiliar = auxiliar->prox;
@@ -156,7 +158,8 @@ main(){
             pesquisarPalavra(inicio, pesquisa);
         break;
         case 4:
-            printf("\n\tPalavra que será removida: ");
+            system("cls");
+            printf("\n\tPalavra que sera removida: ");
             fflush(stdin);
             gets(palavraRemovida);
 
@@ -164,6 +167,7 @@ main(){
                 printf("\n\tDicionario vazio\n\n");
             } else {
                 removerPalavra(&inicio, &fim, palavraRemovida);
+                printf("\n\tPalavra removida com sucesso!\n");
             }   
         break;
         case 0:
