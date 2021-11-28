@@ -76,7 +76,7 @@ void inserirPalavra(list *inicio, list *fim){
 
 void listarPalavras(list auxiliar){
     if(vazia(auxiliar)){
-        printf("\n\tDicionario Vazio!");
+        printf("\n\tDicionario Vazio!\n");
     }
     else{
         printf("\n\t-- Palavras e seus significados --\n");
@@ -135,7 +135,7 @@ main(){
     int opcao;
     list inicio, fim;
     char pesquisa[30], palavraRemovida[30];
-    
+
     inicializar(&inicio, &fim);
 
     do{
@@ -164,7 +164,7 @@ main(){
             gets(palavraRemovida);
 
             if(vazia(inicio)) {
-                printf("\n\tDicionario vazio\n\n");
+                printf("\n\tPalavra nao encontrada pois o dicionário está vazio!\n\n");
             } else {
                 removerPalavra(&inicio, &fim, palavraRemovida);
                 printf("\n\tPalavra removida com sucesso!\n");
@@ -172,8 +172,9 @@ main(){
         break;
         case 0:
             printf("\n\tSaindo..");
+        break;
         default:
-            printf("\n\tOpcao Invalida.");
+            printf("\n\tOpcao Inválida.\n");
         }
     }while(opcao != 0);
 }
